@@ -3,15 +3,15 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { Order } from '../../../../payload/payload-types'
-import { Button } from '../../../_components/Button'
-import { Gutter } from '../../../_components/Gutter'
-import { HR } from '../../../_components/HR'
-import { Media } from '../../../_components/Media'
-import { Price } from '../../../_components/Price'
-import { formatDateTime } from '../../../_utilities/formatDateTime'
-import { getMeUser } from '../../../_utilities/getMeUser'
-import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
+import { Order } from '../../../../../payload/payload-types'
+import { Button } from '../../../../_components/Button'
+import { Gutter } from '../../../../_components/Gutter'
+import { HR } from '../../../../_components/HR'
+import { Media } from '../../../../_components/Media'
+import { Price } from '../../../../_components/Price'
+import { formatDateTime } from '../../../../_utilities/formatDateTime'
+import { getMeUser } from '../../../../_utilities/getMeUser'
+import { mergeOpenGraph } from '../../../../_utilities/mergeOpenGraph'
 
 import classes from './index.module.scss'
 
@@ -123,7 +123,7 @@ export default async function Order({ params: { id } }) {
       </div>
       <HR />
       <div className={classes.actions}>
-        <Button href="/orders" appearance="primary" label="See all orders" />
+        <Button href="/account/orders" appearance="primary" label="See all orders" />
         <Button href="/account" appearance="secondary" label="Go to account" />
       </div>
     </Gutter>
@@ -136,7 +136,7 @@ export async function generateMetadata({ params: { id } }): Promise<Metadata> {
     description: `Order details for order ${id}.`,
     openGraph: mergeOpenGraph({
       title: `Order ${id}`,
-      url: `/orders/${id}`,
+      url: `/account/orders/${id}`,
     }),
   }
 }

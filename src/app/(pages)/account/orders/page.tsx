@@ -3,14 +3,14 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { Order } from '../../../payload/payload-types'
-import { Button } from '../../_components/Button'
-import { Gutter } from '../../_components/Gutter'
-import { HR } from '../../_components/HR'
-import { RenderParams } from '../../_components/RenderParams'
-import { formatDateTime } from '../../_utilities/formatDateTime'
-import { getMeUser } from '../../_utilities/getMeUser'
-import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph'
+import { Order } from '../../../../payload/payload-types'
+import { Button } from '../../../_components/Button'
+import { Gutter } from '../../../_components/Gutter'
+import { HR } from '../../../_components/HR'
+import { RenderParams } from '../../../_components/RenderParams'
+import { formatDateTime } from '../../../_utilities/formatDateTime'
+import { getMeUser } from '../../../_utilities/getMeUser'
+import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
 
 import classes from './index.module.scss'
 
@@ -18,7 +18,7 @@ export default async function Orders() {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'You must be logged in to view your orders.',
-    )}&redirect=${encodeURIComponent('/orders')}`,
+    )}&redirect=${encodeURIComponent('/account/orders')}`,
   })
 
   let orders: Order[] | null = null
@@ -57,7 +57,7 @@ export default async function Orders() {
         <ul className={classes.ordersList}>
           {orders?.map((order, index) => (
             <li key={order.id} className={classes.listItem}>
-              <Link className={classes.item} href={`/orders/${order.id}`}>
+              <Link className={classes.item} href={`/account/orders/${order.id}`}>
                 <div className={classes.itemContent}>
                   <h4 className={classes.itemTitle}>{`Order ${order.id}`}</h4>
                   <div className={classes.itemMeta}>
@@ -94,6 +94,6 @@ export const metadata: Metadata = {
   description: 'Your orders.',
   openGraph: mergeOpenGraph({
     title: 'Orders',
-    url: '/orders',
+    url: '/account/orders',
   }),
 }
