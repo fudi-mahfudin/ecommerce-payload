@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { Order } from '../../../../../payload/payload-types'
-import { Button } from '../../../../_components/Button'
-import { Gutter } from '../../../../_components/Gutter'
 import { HR } from '../../../../_components/HR'
 import { Media } from '../../../../_components/Media'
 import { Price } from '../../../../_components/Price'
@@ -46,11 +44,11 @@ export default async function Order({ params: { id } }) {
   }
 
   return (
-    <Gutter className={classes.orders}>
-      <h1>
+    <div>
+      <h5>
         {`Order`}
         <span className={classes.id}>{`${order.id}`}</span>
-      </h1>
+      </h5>
       <div className={classes.itemMeta}>
         <p>{`ID: ${order.id}`}</p>
         <p>{`Payment Intent: ${order.stripePaymentIntentID}`}</p>
@@ -65,7 +63,6 @@ export default async function Order({ params: { id } }) {
       </div>
       <HR />
       <div className={classes.order}>
-        <h4 className={classes.orderItems}>Items</h4>
         {order.items?.map((item, index) => {
           if (typeof item.product === 'object') {
             const {
@@ -104,16 +101,15 @@ export default async function Order({ params: { id } }) {
                         {'.'}
                       </p>
                     )}
-                    <h5 className={classes.title}>
+                    <h6 className={classes.title}>
                       <Link href={`/products/${product.slug}`} className={classes.titleLink}>
                         {title}
                       </Link>
-                    </h5>
+                    </h6>
                     <p>{`Quantity: ${quantity}`}</p>
                     <Price product={product} button={false} quantity={quantity} />
                   </div>
                 </div>
-                {!isLast && <HR />}
               </Fragment>
             )
           }
@@ -121,12 +117,8 @@ export default async function Order({ params: { id } }) {
           return null
         })}
       </div>
-      <HR />
-      <div className={classes.actions}>
-        <Button href="/account/orders" appearance="primary" label="See all orders" />
-        <Button href="/account" appearance="secondary" label="Go to account" />
-      </div>
-    </Gutter>
+      <HR className={classes.hr} />
+    </div>
   )
 }
 
